@@ -4,7 +4,7 @@ async function connect(){
         return global.connection;
 
     const mysql = require("mysql2/promise");
-    const connection = await mysql.createConnection("mysql://root:luiztools@localhost:3306/crud");
+    const connection = await mysql.createConnection("mysql://root:nogueira@localhost:3306/crud");
     console.log("Conectou no MySQL!");
     global.connection = connection;
     return connection;
@@ -12,7 +12,8 @@ async function connect(){
 
 async function selectCustomers(){
     const conn = await connect();
-    const [rows] = await conn.query('SELECT * FROM clientes;');
+    const [rows] = await conn.query('SELECT * FROM clientes where salary > ?;');
+    const values = [customer.salaryMin];
     return rows;
 }
 
